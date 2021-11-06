@@ -13,6 +13,23 @@ public class Board implements ObserverField{
 	private final List<Field> fields = new ArrayList<Field>();
 	private final List<Consumer<EventResult>> observers = new ArrayList<Consumer<EventResult>>();
 	
+	
+	public int getLines() {
+		return lines;
+	}
+
+	public int getColumns() {
+		return columns;
+	}
+	
+	public int getMines() {
+		return mines;
+	}
+
+	public List<Field> getFields() {
+		return fields;
+	}
+
 	public Board(int lines, int columns, int mines){
 		this.lines = lines;
 		this.columns = columns;
@@ -23,6 +40,9 @@ public class Board implements ObserverField{
 		drawMines();
 	}
 	
+	public void forEachField(Consumer<Field> function) {
+		fields.forEach(function);
+	}
 	public void registerObserver(Consumer<EventResult> observer) {
 		observers.add(observer);
 	}
