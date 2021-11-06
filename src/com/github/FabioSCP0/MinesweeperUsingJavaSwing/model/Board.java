@@ -28,16 +28,10 @@ public class Board implements ObserverField{
 	}
 	
 	public void open(int lines, int columns) {
-		try {
-			fields.parallelStream()
-				.filter(f -> f.getLine() == lines && f.getColumn() == columns)
-				.findFirst()
-				.ifPresent(f -> f.open());
-		} catch (Exception explosion) {
-			//FIXME adjust open method
-			fields.forEach(f -> f.setOpened(true));
-			throw explosion;
-		}
+		fields.parallelStream()
+			.filter(f -> f.getLine() == lines && f.getColumn() == columns)
+			.findFirst()
+			.ifPresent(f -> f.open());
 	}
 	
 	public void toggleMarcked(int lines, int columns) {
