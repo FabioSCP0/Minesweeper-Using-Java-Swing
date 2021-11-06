@@ -65,7 +65,7 @@ public class Field {
 	}
 	
 	//if the field has not yet been opened, it can be marked as a possible mine location marked is true
-	void toggleMarcked() {
+	public void toggleMarcked() {
 		if(!opened) {
 			marcked = !marcked;
 			if(marcked) notifyObservers(EventField.MARKED);
@@ -77,6 +77,7 @@ public class Field {
 		opened = false;
 		mined = false;
 		marcked = false;
+		notifyObservers(EventField.RESTART);
 	}
 	
 	//Open README to understand that logical
@@ -99,22 +100,22 @@ public class Field {
 	}
 	
 	//We don't expect to find any minefields
-	boolean safetedNeighborhood() {
+	public boolean safetedNeighborhood() {
 		return neighborhood
 				.stream()
 				.noneMatch(n -> n.mined);
 	}
 	
 	//We hope to find a number of mines near a neighborhood
-	long mineInNeighborhood() {
-		return neighborhood
+	public int mineInNeighborhood() {
+		return (int) neighborhood
 				.stream()
 				.filter(n -> n.mined)
 				.count();
 	}
 	
 	//function to open one field, or many empyt fields via recursive call
-	boolean open() {
+	public boolean open() {
 		if(!opened && !marcked) {
 			opened = true;
 			//if the chosen field is mined, throws an explosion exception
